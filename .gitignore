@@ -44,3 +44,5 @@
 [Dd]ebugPublic/
 [Rr]elease/
 *.aps
+/Lab2/data/single.txt
+/Lab2/data/multi.txt

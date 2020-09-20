@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace Lab2
@@ -11,6 +12,8 @@ namespace Lab2
 
 
         public double this[int row, int column] => _elements[row * Size + column];
+        public double this[int elementIndex] => _elements[elementIndex];
+
 
         public SquareMatrix(int size, double[] elements)
         {
@@ -42,7 +45,7 @@ namespace Lab2
             return new SquareMatrix(size, randomElements);
         }
 
-        public void Print()//yea yea, SRP
+        public void PrintToConsole()//yea yea, SRP
         {
             for (var i = 0; i < Size; i++)
             {
@@ -55,6 +58,23 @@ namespace Lab2
             }
 
             Console.WriteLine();
+        }
+
+        public void PrintToFile(string path)//yea yea, SRP
+        {
+            using (FileStream outFile = File.OpenWrite(path))
+            using (var writer = new StreamWriter(outFile))
+            {
+                for (var i = 0; i < Size; i++)
+                {
+                    var line = new StringBuilder();
+
+                    for (var j = 0; j < Size; j++)
+                        line.Append($"{this[i, j],10:F2}");
+
+                    writer.WriteLine(line);
+                }
+            }
         }
     }
 }
